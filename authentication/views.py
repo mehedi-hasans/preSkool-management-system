@@ -66,3 +66,11 @@ def loginPage(request):
 def adminPage(request):
 
     return render(request,"myAdmin/adminhome.html")
+
+
+def myProfile(request):
+    user = request.user
+    context = {
+        'user': user
+    }
+    return render(request, 'profile.html', context)
