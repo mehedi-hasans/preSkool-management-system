@@ -1,7 +1,9 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from .models import *
-
+#login authentication
+from django.contrib.auth import login as auth_login
+from django.contrib.auth import authenticate,login
 
 # Create your views here.
 def signupPage(request):
@@ -23,5 +25,44 @@ def signupPage(request):
             return redirect("loginPage")
     return render(request, "signup.html")
 
+
+
+
 def loginPage(request):
+    error_messages = {
+        'username_error': 'Username is required.',
+        'password_error': 'Password is required.',
+        'login_error': 'Invalid username or password. Please try again.',
+    }
+
+    if request.method == "POST":
+        username = request.POST.get("username")
+        pass1 = request.POST.get("password")
+        
+        if not username:
+            messages.error(request, error_messages['username_error'])
+        elif not pass1:
+            messages.error(request, error_messages['password_error'])
+        else:
+            user =authenticate(request, username=username, password=pass1,)
+
+            if user is not None:
+                login(request,user)
+                user_type = user.user_type
+                if user_type == '1':
+                    return redirect("adminPage")
+                elif user_type == '2':
+                    return render(request, "Staff/staffhome.html")
+                elif user_type == '3':
+                    return render(request, "Students/Stustudenthome.html")
+                else:
+                    return redirect("signupPage")
+            else:
+                messages.error(request, error_messages['login_error'])
+
     return render(request, "login.html")
+
+
+def adminPage(request):
+
+    return render(request,"myAdmin/adminhome.html")
