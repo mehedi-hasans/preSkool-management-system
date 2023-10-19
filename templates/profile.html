@@ -4,7 +4,7 @@
 
 <style>
 
-   .avatar{
+   .myavatar{
       width:200px;
       height:200px;
       }
@@ -14,7 +14,7 @@
    <div class="col-sm-12">
       <div class="card">
          <div class="card-body">
-            <form method="post", action="" enctype="multipart/form-data">
+            <form method="post", action=" {% url 'profileUpdate' %}" enctype="multipart/form-data">
                {% csrf_token %}
                <div class="row">
                   <div class="col-12">
@@ -23,7 +23,7 @@
                   <div class="col-12 col-sm-6">
                      <div class="form-group">
                         <label>Username</label>
-                        <input name="username" type="text" class="form-control" value="{{user.username}}">
+                        <input name="username" type="text" class="form-control" value="{{user.username}}" readonly>
                      </div>
                   </div>
                   <div class="col-12 col-sm-6">
@@ -46,35 +46,21 @@
                         <input name="email" type="text" class="form-control" value="{{user.email}}" readonly>
                      </div>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-4">
                      <div class="text-center">
-                       <img src="/{{user.profile_pic}}" class="avatar img-circle img-thumbnail" alt="avatar">
-                       <h6>Upload a different photo...</h6>
-                       
-                       <input type="file" name="profile_pic" class="form-control" value="/{{user.profile_pic}}">
+                       <img src="/{{user.profile_pic}}" class="myavatar img-circle img-thumbnail" alt="avatar">
+                       <h6> Name : {{user.first_name}} {{user.last_name}}</h6>
+                       <div class="form-group">
+                        <input type="file" name="profile_pic" class="form-control" value="/{{user.profile_pic}}">
+                     </div>
+   
                      </div>
                    </div>
-                  <div class="col-12">
-                     <button type="submit" class="btn btn-primary">Update Profile</button>
-                     {% if messages %}
-                     {% for message in messages %}
-                     {% if message.tags == 'error' %}
-                    <div class="alert alert-danger" role="alert">
-                       {{ message }}
-                    </div>
-                     {% endif %}
-                     {% endfor %}
-                    {% endif %}
-                 
-                    {% if messages %}
-                    {% for message in messages %}
-                    {% if message.tags == 'success' %}
-                    <div class="alert alert-success" role="alert">
-                       {{ message }}
-                    </div>
-                    {% endif %}
-                    {% endfor %}
-                    {% endif %}
+                   
+                   <div class="col-12">
+                     <button type="submit" class="btn btn-success">Update Profile</button>
+                     <button type="submit" class="btn btn-danger"><a href="" class='text-white'>Change Password</a></button> <br> <br>
+                     {% include "includes/massage.html" %}
                   </div>
                </div>
             </form>
