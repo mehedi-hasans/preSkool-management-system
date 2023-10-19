@@ -64,3 +64,9 @@ def addStudent(request):
     }
 
     return render(request, "students/addStudent.html", context)
+
+
+
+def studentList(request):
+    allStudent=studentModel.objects.all()
+    return render(request,"Students/studentList.html",{"student":allStudent})
