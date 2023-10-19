@@ -125,3 +125,29 @@ def profileUpdate(request):
     return render(request, 'profile.html')
 
 
+#Change Password
+def changePassword(request):
+    error_messages = {
+        'success': 'Changed Successfully',
+        'mismatch': 'New password and confirm password not matched',
+        'old_password': 'Old password not match',
+    }
+    
+    if request.method == "POST":
+        old_password = request.POST.get("oldPassword")
+        new_password = request.POST.get("newpassword")
+        confirm_password = request.POST.get("confirmPassword")
+        user = request.user
+        
+        if user.check_password(old_password):
+            if new_password == confirm_password:
+                user.set_password(new_password)
+                user.save()
+                messages.success(request, error_messages['success'])
+                return redirect("loginPage")
+            else:
+                messages.error(request, error_messages['mismatch'])
+        else:
+            messages.error(request, error_messages['old_password'])
+
+    return render(request, "changepassword.html")
