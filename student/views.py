@@ -6,7 +6,7 @@ from django.contrib import messages
 def addStudent(request):
     error_messages = {
         'success': 'Student Add Successfully',
-        'error': 'Student Add Failed',
+        'error': 'Student Already Exits',
     }
     if request.method == "POST":
         profile_pic = request.FILES.get('profile_pic')
