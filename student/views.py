@@ -70,3 +70,18 @@ def addStudent(request):
 def studentList(request):
     allStudent=studentModel.objects.all()
     return render(request,"Students/studentList.html",{"student":allStudent})
+
+
+def editStudent(request,id):
+    student=studentModel.objects.filter(id=id)
+    course = courseModel.objects.all()
+    session_year = sessionYearModel.objects.all()
+    st=studentModel.objects.all()
+    context = {
+        "course": course,
+        "session": session_year,
+        "student":student,
+        
+    }
+    
+    return render(request,"Students/editStudent.html",context)
