@@ -85,3 +85,55 @@ def editStudent(request,id):
     }
     
     return render(request,"Students/editStudent.html",context)
+
+
+
+
+def updateStudent(request):
+    error_messages = {
+        'success': 'Student Updated Successfully',
+        'error': 'Student Updated Failed',
+    }
+    if request.method == "POST":
+        profile_pic = request.FILES.get('profile_pic')
+        student_id = request.POST.get("student_id")
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        email = request.POST.get("email")
+        username = request.POST.get("username")  # Changed from 'user_name' to 'username'
+        password = request.POST.get("password")
+        address = request.POST.get("address")
+        gender = request.POST.get("gender")
+        course_id = request.POST.get("courseid")
+        session_year_id = request.POST.get("sessionyearid")
+        
+        user=customUser.objects.get(id=student_id)
+        
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email=email
+        user.username=username
+        
+        if password is not None and password!="":
+            user.set_password(password)
+        if password is not None and profile_pic!="":
+            user.profile_pic=profile_pic
+        user.save()
+        
+        student=studentModel.objects.get(admin=student_id)
+        student.address=address
+        student.gender=gender
+        
+        course=courseModel.objects.get(id=course_id)
+        student.course_id=course
+        
+        session=sessionYearModel.objects.get(id=session_year_id)
+        student.session_year_id=session
+        
+        student.save()
+        
+        
+        messages.success(request, error_messages['success'])
+        return redirect("studentList")
+    
+    return render(request,"editStudent.html")
