@@ -6,7 +6,7 @@ from django.contrib import messages
 def addStudent(request):
     error_messages = {
         'success': 'Student Add Successfully',
-        'error': 'Student Already Exits',
+        'error': 'Student Add Failed',
     }
     if request.method == "POST":
         profile_pic = request.FILES.get('profile_pic')
@@ -51,19 +51,17 @@ def addStudent(request):
             student.save()
 
             messages.success(request, error_messages['success'])
-            return redirect("addStudent")
+            return redirect("studentList")
 
     # Fetch the course and session year data to display in the form
     course = courseModel.objects.all()
     session_year = sessionYearModel.objects.all()
-    st=studentModel.objects.all()
     context = {
         "course": course,
-        "session": session_year,
-        "st":st,   
+        "session": session_year, 
     }
 
-    return render(request, "students/addStudent.html", context)
+    return render(request, "Students/addStudent.html", context)
 
 
 
@@ -137,3 +135,10 @@ def updateStudent(request):
         return redirect("studentList")
     
     return render(request,"editStudent.html")
+
+
+
+def studentDelete(request, id):
+    stu=studentModel.objects.filter(id=id)
+    stu.delete()
+    return redirect("studentList")
