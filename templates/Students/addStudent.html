@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% block title %}PreSkool - Add Student{% endblock title %}
 
 {% block content %}
 <div class="row">
@@ -96,7 +96,10 @@
                    
                    <div class="col-12">
                       <button type="submit" class="btn btn-primary">Add Student</button>
+                      <a class="btn btn-primary" href="{% url "studentList" %}">Student List</a>
                    </div>
+                   <br>
+                   <br> 
                    <div class="col-12">
                      {% include "includes/massage.html" %}
                   </div>

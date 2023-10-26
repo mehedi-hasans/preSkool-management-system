@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% block title %}PreSkool - Teacher List{% endblock title %}
 {% block content %}
 
 <div class="row">
@@ -50,6 +50,7 @@
                    </tbody>
                 </table>
              </div>
+             <a class="btn btn-primary" href="{% url "addTeacher" %}">Add Teacher</a>
           </div>
        </div>
     </div>

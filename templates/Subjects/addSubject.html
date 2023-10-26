@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% block title %}PreSkool - Add Subject{% endblock title %}
 {% block content %}
 <div class="row">
     <div class="col-sm-12">
@@ -53,6 +53,7 @@
                 
                    <div class="col-12">
                       <button type="submit" class="btn btn-primary">Add Subject</button>
+                      <a class="btn btn-primary" href="{% url "subjectList" %}">Subject List</a>
                    </div>
                    <div class="col-12">
                      {% include 'includes/massage.html' %}

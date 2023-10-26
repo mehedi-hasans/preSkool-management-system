@@ -7,13 +7,8 @@
             <li class="menu-title">
                <span>Main Menu</span>
             </li>
-            <li class="submenu active">
-               <a href="#"><i class="fas fa-user-graduate"></i> <span> Dashboard</span> <span class="menu-arrow"></span></a>
-               <ul>
-                  <li><a href="index.html" class="active">Admin Dashboard</a></li>
-                  <li><a href="teacher-dashboard.html">Teacher Dashboard</a></li>
-                  <li><a href="student-dashboard.html">Student Dashboard</a></li>
-               </ul>
+            <li class="active">
+               <a href="{% url 'adminPage' %}"><i class="fas fa-user-house"></i> <span> Dashboard</span></span></a>
             </li>
             <li class="submenu">
                <a href="#"><i class="fas fa-user-graduate"></i> <span> Students</span> <span class="menu-arrow"></span></a>
